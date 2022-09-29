@@ -48,19 +48,21 @@
     line-height: 1.5;
 }
 body {
-    font-family: "Times New Roman", "Noto Serif CJK JP";
+    /*font-family: "Times New Roman", "Noto Serif CJK JP";*/
     /*font-family: "Roboto", "Noto Sans CJK JP";*/
-    /*font-family: "Helvetica Neue", "YuGothic";*/
+    font-family: "Helvetica Neue", "YuGothic";
     font-size: 12px;
     line-height: 1.5;
     position: relative;
     top: -1px;
+    text-spacing: auto;
 
     width: 558px;
     vertical-align: top;
 }
 h1 {
-    font-family: "Roboto", "Noto Sans CJK JP";
+    /*font-family: "Roboto", "Noto Sans CJK JP";*/
+    font-family: "Helvetica Neue", "YuGothic";
     font-size: 24px;
     position: relative;
     top: 4px;
@@ -227,10 +229,10 @@ hr {
 /*body {
     background-image: url(baseline.svg);
 }*/
-@page {
+/*@page {
     background-image: url(baseline.svg);
     background-position: 0 -6px;
 }
 body > * {
     opacity: .5;
-}
+}*/
