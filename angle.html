@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="style.css">
+<title>描画</title>
+<style>
+  body { break-before: verso; }
+</style>
+<div class="grid grid-x-0 grid-y-0 grid-width-1-6 grid-height-1">
+  <h1>角度をつけて画像を描画する</h1>
+  <p>要約: <code>ebiten.DrawImageOptions</code> の <code>GeoM</code> の <code>Rotate</code> を用います。</p>
+</div>
+<div class="grid grid-x-0 grid-y-1-6 grid-width-1-1 grid-height-1-6" style="columns: 2; column-gap: 18px; column-fill: auto;">
+  <p>画像の位置を変更するなど、幾何変換を加えるには <code>ebiten.DrawImageOptions</code> の <code>GeoM</code> を用います。 <code>GeoM</code> に対して操作を行ってから <code>(*ebiten.Image).DrawImage</code> を呼びます。</p>
+  <p><code>(*ebiten.GeoM).Rotate</code> に指定する角度はラジアンです。</p>
+  <p>描画における座標系は Y 軸が下向きです。そのため指定した角度分時計回りに回転します。また座標系の原点は左上なので、回転中心も左上になります。回転中心をずらすには少しコツが必要です。これについては後述します。</p>
+  <p>数学的には、 <code>(*ebiten.GeoM).Rotate</code> は回転行列を左から乗算する関数です。</p>
+</div>
+<div class="grid grid-x-0 grid-y-1-3 grid-width-1-1 code">
+  <pre><code>func (*GeoM).Rotate(theta float64)</code></pre>
+</div>
+<hr>
+<div class="grid grid-x-1-4 grid-y-0 grid-width-3-4 code-small">
+  <pre><code>package main
+
+import (
+    "bytes"
+    "image"
+    _ "image/jpeg"
+    "log"
+    "math"
+
+    "github.com/hajimehoshi/ebiten"
+    "github.com/hajimehoshi/ebiten/examples/resources/images"
+)
+
+var (
+    gophersImage *ebiten.Image
+)
+
+type Game struct {}
+
+func (g *Game) Update(screen *ebiten.Image) error {
+    return nil
+}
+
+func (g *Game) Draw(screen *ebiten.Image) {
+    w, h := gophersImage.Size()
+    op := &amp;ebiten.DrawImageOptions{}
+    op.GeoM.Translate(-float64(w)/2, -float64(h)/2)
+    op.GeoM.Rotate(45.0 * 2 * math.Pi / 360)
+    op.GeoM.Translate(screenWidth/2, screenHeight/2)
+    screen.DrawImage(gophersImage, op)
+}
+
+func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+    return 320, 240
+}
+
+func main() {
+    if err != nil {
+        log.Fatal(err)
+    }
+    gophersImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+    if err := ebiten.RunGame(&Game{}); err != nil {
+        log.Fatal(err)
+    }
+}</code></pre>
+</div>
+<hr>
+<p id="hoge">ほげ</p>
